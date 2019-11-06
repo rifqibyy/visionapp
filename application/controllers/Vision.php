@@ -45,7 +45,6 @@ class Vision extends CI_Controller
         } else {
             $data = $this->upload->data();
             $fileToUpload = $data['file_name'];
-            $this->db->insert('datas', ['img' => $fileToUpload]);
 
             var_dump($data['file_type']);
 
@@ -77,10 +76,28 @@ class Vision extends CI_Controller
             $options = new CreateBlockBlobOptions();
             $options->setContentType($data['file_type']);
             //Upload blob
-            $blobClient->createBlockBlob($containerName, $fileToUpload, $content, $options);
 
-            $last_row = $this->db->select('id')->order_by('id', "desc")->limit(1)->get('datas')->row();
-            redirect(base_url('vision/show/' . $last_row->id));
+            try {
+                $blobClient->createBlockBlob($containerName, $fileToUpload, $content, $options);
+            } catch (ServiceException $e) {
+                // Handle exception based on error codes and messages.
+                // Error codes and messages are here:
+                // http://msdn.microsoft.com/library/azure/dd179439.aspx
+                $code = $e->getCode();
+                $error_message = $e->getMessage();
+                echo $code . ": " . $error_message . "<br />";
+            } catch (InvalidArgumentTypeException $e) {
+                // Handle exception based on error codes and messages.
+                // Error codes and messages are here:
+                // http://msdn.microsoft.com/library/azure/dd179439.aspx
+                $code = $e->getCode();
+                $error_message = $e->getMessage();
+                echo $code . ": " . $error_message . "<br />";
+            } finally {
+                $this->db->insert('datas', ['img' => $fileToUpload]);
+                $last_row = $this->db->select('id')->order_by('id', "desc")->limit(1)->get('datas')->row();
+                redirect(base_url('vision/show/' . $last_row->id));
+            }
         }
     }
 }
