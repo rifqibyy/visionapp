@@ -47,7 +47,7 @@ class Vision extends CI_Controller
             $fileToUpload = $data['file_name'];
 
             echo FCPATH . 'vendor/autoload.php';
-            var_dump($data['file_type']);
+            var_dump($data['file_type']. 'a');
 
             echo '<br>';
             echo '<br>';
