@@ -46,11 +46,11 @@ class Vision extends CI_Controller
             $data = $this->upload->data();
             $fileToUpload = $data['file_name'];
 
-            echo FCPATH . 'vendor\autoload.php';
-            var_dump($data['file_type']. 'a');
+            // echo FCPATH . 'vendor\autoload.php';
+            // var_dump($data['file_type']. 'a');
 
-            echo '<br>';
-            echo '<br>';
+            // echo '<br>';
+            // echo '<br>';
 
             $connectionString = "DefaultEndpointsProtocol=https;AccountName=rifqiblob;AccountKey=t/Ed4rbod65ilRgjSkrNuxt7A5EoWsT8SEI916+TSirhGzYdJyOO2CrAcHO80Gpdi+hT9YQmpxV9FngpULpdAQ==;EndpointSuffix=core.windows.net";
 
