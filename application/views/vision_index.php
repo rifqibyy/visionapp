@@ -205,13 +205,17 @@
     </section>
 
     <script>
-        $("#file-input").change(function() {
-            var filename = this.files[0].name
-            $("#picture-file .file-name").text(filename)
-        })
+        $(document).ready(function() {
+            $('.loading').hide()
 
-        $('.button').click(function(){
-            $('.loading').show()
+            $("#file-input").change(function() {
+                var filename = this.files[0].name
+                $("#picture-file .file-name").text(filename)
+            })
+
+            $('.button').click(function() {
+                $('.loading').show()
+            })
         })
     </script>
 
